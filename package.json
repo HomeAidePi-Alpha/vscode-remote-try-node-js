@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "description": "Node.js on Docker",
   "author": "First Last <first.last@example.com>",
-  "main": "server.js",
+  "main": "app.js",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
+    "prepare": "husky install"
   },
   "dependencies": {
     "express": "^4.16.1"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "jest": "^28.0.3",
+    "supertest": "^6.2.3"
   }
 }
