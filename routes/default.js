@@ -1,6 +1,6 @@
 // routes/default.js
 function index(req, res) {
-    res.send('hello world!');
+    res.send('hello remote world!');
 }
 
 function hello(req, res) {
