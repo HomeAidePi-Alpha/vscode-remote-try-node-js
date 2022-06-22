@@ -1,0 +1,67 @@
+name: Delete All Workflow Runs by Owner / Repo
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        description : Environment name
+        required : true
+        default: preprod
+      PYTHON_FILE_PATH:
+        description : 'Relative path to the python file to execute'
+        required: true
+        default: './workloads/python/github-actions-delete-workflows-by-owner-repo.py'
+      OWNER:
+        description: 'Owner of the action'
+        required: true
+        default: 'HomeAidePi-Alpha'
+      REPO:
+        description: 'Repository to perform action against'
+        required: true
+        default: 'GithubEnvironments-Actions'
+      WORKFLOW_ID:
+        description : 'Workflow Id to delete runs for'
+        required: true
+        default: "24800832"
+
+#Phase 1 - Alpha - Executed
+jobs:
+  Phase1-Alpha-Python-Executed:
+    runs-on: ubuntu-latest
+    # todo Implement principle of least priv based on need
+    environment: ${{ github.event.inputs.ENVIRONMENT }}
+    permissions:
+      contents: write 
+      id-token: write
+      issues: write
+      actions: write
+      deployments: write
+      repository-projects: write
+      checks: write
+      packages: write
+      pull-requests: write
+      security-events: write
+      statuses: write
+
+    steps:
+      # Checkout the repo
+    - name: Check out Repo
+      uses: actions/checkout@v3
+
+    # Setup Python versions
+    - name: Setup Python versions
+      uses: actions/setup-python@v2
+      with:
+        # Semantic version range syntax or exact version of a Python version
+        python-version: ${{ secrets.PYTHON_VERSION }}
+        # Optional - x64 or x86 architecture, defaults to x64
+        architecture: ${{ secrets.PYTHON_ARCHITECTURE }}
+
+    # Printing the current Python version & can perform python to perform file or src move operations in advance of repo creation
+    - name: Display Python version & Execute python on the file path
+      shell: bash
+      run: | 
+        pip install ghapi
+        pip install requests
+        python -c "import sys; print(sys.version)"
+        python ${{ github.event.inputs.PYTHON_FILE_PATH }} '${{ github.event.inputs.OWNER }}' '${{ github.event.inputs.REPO }}' '${{ secrets.REPO_TOKEN }}' '${{  github.event.inputs.WORKFLOW_ID }}'
+        

@@ -1,0 +1,12 @@
+---
+version: '3.8'
+
+services:
+  runner:
+    image: az-ps-aci-gh-self-hosted-runner:latest
+    build:
+      context: .
+      args:
+        RUNNER_VERSION: '2.292.0'
+    env_file:
+      - ./preprod.env

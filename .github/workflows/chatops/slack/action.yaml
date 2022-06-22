@@ -1,0 +1,43 @@
+name: Create a Teams message related to action
+
+inputs:
+  SLACK_USER_NAME:
+    description: 'User who should be sent along the notification'
+    required: true
+  SLACK_CHANNEL:
+    description: 'The main slack message'
+    required: true
+  SLACK_COLOR:
+    description: 'The message coloring'
+    required: true
+  SLACK_ICON:
+    description: 'The slack icon'
+    required: true
+  SLACK_MESSAGE:
+    description: 'The main slack message'
+    required: true
+  SLACK_TITLE:
+    description: 'The message title'
+    required: true
+  SLACK_WEBHOOK:
+    description: 'Slack Webhook for some Chat Channel'
+    required: true
+
+runs:
+    using: "composite"
+    steps:
+      # Checkout the repo
+    - name: Check out Repo
+      uses: actions/checkout@v3
+
+    # Send Chat Ops notification
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: ${{ inputs.SLACK_CHANNEL }}
+        SLACK_COLOR: ${{ inputs.SLACK_COLOR }}
+        SLACK_ICON: ${{ inputs.SLACK_ICON }}
+        SLACK_MESSAGE: ${{ inputs.SLACK_MESSAGE }}
+        SLACK_TITLE: ${{ inputs.SLACK_TITLE }}
+        SLACK_USERNAME: ${{ inputs.SLACK_USERNAME }}
+        SLACK_WEBHOOK: ${{ inputs.SLACK_WEBHOOK }}
