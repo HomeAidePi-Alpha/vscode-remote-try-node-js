@@ -10,7 +10,7 @@ $acrPassword = "servicePrincipalClientSecret" #The `clientSecret` from the JSON 
 $image = "$acrLoginServer/az-ps-aci-gh-self-hosted-runner:latest" #image reference to pull
 $pat = "githubPAT" #GitHub PAT token
 $githubOrg = "HomeAidePi-Alpha" #GitHub Owner
-$githubRepo = "docker-github-runner-linux" #GitHub repository to register self hosted runner against
+$githubRepo = "feitss-az-ps-aci-gh-self-hosted-runner-linux" #GitHub repository to register self hosted runner against
 $osType = "Linux" #Use "Windows" if image is Windows OS
 
 az container create --resource-group "$aciResourceGroupName" `
